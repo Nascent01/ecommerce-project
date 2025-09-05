@@ -5,6 +5,8 @@ namespace App\Console\Commands\Catalog;
 use Illuminate\Console\Command;
 use App\Traits\CommandTrait;
 use Illuminate\Support\Facades\Artisan;
+use App\Services\Command\ImportProductsService;
+
 
 class ImportProducts extends Command
 {
@@ -24,6 +26,12 @@ class ImportProducts extends Command
      */
     protected $description = 'Import products from json file';
 
+    public function __construct(
+        private ImportProductsService $importProductsService,
+    ) {
+        parent::__construct();
+    }
+
     /**
      * Execute the console command.
      */
@@ -37,11 +45,13 @@ class ImportProducts extends Command
             'product_product_category',
         ], true);
 
-        Artisan::call('db:seed', ['class' => 'Database\Seeders\Product\ProductCategorySeeder']);
+        Artisan::call('db:seed', ['class' => 'Database\Seeders\Catalog\ProductCategorySeeder']);
 
         $productsPath = storage_path('app/private/Products.json');
         $products = json_decode(file_get_contents($productsPath), true);
 
+        $this->importProductsService->handleProducts($products);
+        $this->importProductsService->handleProductProductCategoryInsert();
 
         $this->displayExecutionTime($scriptTimeStart);
     }
