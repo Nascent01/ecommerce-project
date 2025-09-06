@@ -4,7 +4,7 @@ export default function ProductInformation({ product }) {
   return (
     <div>
       <h1 className="text-3xl font-bold text-gray-800">{product.name}</h1>
-      <p className="text-xl font-semibold text-blue-600">${product.price}</p>
+      <p className="text-xl font-semibold text-blue-600">{product.price} €</p>
 
       <div className="flex flex-wrap gap-2 mt-2">
         {product.categories?.map((cat) => (
