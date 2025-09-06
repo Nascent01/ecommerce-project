@@ -3,7 +3,6 @@
 namespace App\Http\Controllers\Api\Catalog;
 
 use App\Http\Controllers\Controller;
-use App\Models\Catalog\Product;
 use \Illuminate\Http\JsonResponse;
 use App\Services\Catalog\ProductService;
 
@@ -23,5 +22,11 @@ class ProductController extends Controller
     {
         $products = $this->productService->getProductsFilterredByCategory($productCategory);
         return response()->json($products, 200, [], JSON_PRETTY_PRINT);
+    }
+
+    public function show($slug): JsonResponse
+    {
+        $product = $this->productService->getProductBySlug($slug);
+        return response()->json($product, 200, [], JSON_PRETTY_PRINT);
     }
 }

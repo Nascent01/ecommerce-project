@@ -4,7 +4,7 @@ import api from "../api";
 import ProductList from "../components/Catalog/ProductList";
 import ProductCategories from "../components/Catalog/ProductCategoriesFilter";
 
-function Homepage() {
+export default function Homepage() {
   const [products, setProducts] = useState([]);
   const [categories, setCategories] = useState([]);
   const [selectedCategory, setSelectedCategory] = useState("");
@@ -35,5 +35,3 @@ function Homepage() {
     </div>
   );
 }
-
-export default Homepage;
