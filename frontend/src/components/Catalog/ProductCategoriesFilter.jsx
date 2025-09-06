@@ -8,7 +8,7 @@ export default function ProductCategories({ setSelectedCategory, categories }) {
         className="w-full border border-gray-300 rounded-lg p-2 focus:ring-2 focus:ring-blue-500"
         onChange={(e) => setSelectedCategory(e.target.value)}
       >
-        <option value="Всички">Всички</option>
+        <option value="">Всички</option>
         {categories.map((category) => (
           <option key={category.id} value={category.id}>
             {category.name}

@@ -7,7 +7,7 @@ import ProductCategories from "../components/Catalog/ProductCategoriesFilter";
 function Homepage() {
   const [products, setProducts] = useState([]);
   const [categories, setCategories] = useState([]);
-  const [selectedCategory, setSelectedCategory] = useState("Всички");
+  const [selectedCategory, setSelectedCategory] = useState("");
 
   useEffect(() => {
     api.get("/products")
@@ -22,11 +22,10 @@ function Homepage() {
   }, []);
 
   useEffect(() => {
-    if (selectedCategory !== "Всички") {
-      api.get(`/products/${selectedCategory}`)
-        .then((res) => setProducts(res.data))
-        .catch((err) => console.error(err));
-    }
+    api
+      .get(`/products/${selectedCategory || ""}`)
+      .then((res) => setProducts(res.data))
+      .catch((err) => console.error(err));
   }, [selectedCategory]);
 
   return (
