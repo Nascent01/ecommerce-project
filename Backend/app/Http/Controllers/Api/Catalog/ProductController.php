@@ -3,8 +3,11 @@
 namespace App\Http\Controllers\Api\Catalog;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Catalog\StoreProductRequest;
+use App\Http\Requests\Catalog\UpdateProductRequest;
 use \Illuminate\Http\JsonResponse;
 use App\Services\Catalog\ProductService;
+use App\Models\Catalog\Product;
 
 class ProductController extends Controller
 {
@@ -27,6 +30,24 @@ class ProductController extends Controller
     public function show($slug): JsonResponse
     {
         $product = $this->productService->getProductBySlug($slug);
+        return response()->json($product, 200, [], JSON_PRETTY_PRINT);
+    }
+
+    public function store(StoreProductRequest $request)
+    {
+        $product = Product::create($request->validated());
+        return response()->json($product, 200, [], JSON_PRETTY_PRINT);
+    }
+
+    public function update(UpdateProductRequest $request, Product $product)
+    {
+        $product = $this->productService->handleUpdate($product, $request->validated());
+        return response()->json($product, 200, [], JSON_PRETTY_PRINT);
+    }
+
+    public function delete(Product $product)
+    {
+        $product->delete();
         return response()->json($product, 200, [], JSON_PRETTY_PRINT);
     }
 }

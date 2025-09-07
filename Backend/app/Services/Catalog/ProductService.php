@@ -3,6 +3,7 @@
 namespace App\Services\Catalog;
 
 use App\Models\Catalog\Product;
+use Illuminate\Support\Arr;
 
 class ProductService
 {
@@ -24,5 +25,20 @@ class ProductService
     public function getProductBySlug($slug)
     {
         return Product::where('slug', $slug)->with('categories')->firstOrFail();
+    }
+
+    public function handleUpdate($product, $request)
+    {
+        $categories = Arr::pull($request, 'category');
+
+        $product->update($request);
+
+        if ($categories !== null) {
+            $product->categories()->sync($categories);
+        }
+
+        $product->load('categories');
+
+        return $product;
     }
 }
