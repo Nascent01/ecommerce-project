@@ -14,8 +14,13 @@ class ImportProductsService
     {
         $productsData = [];
         $existingProductSlugs = [];
+        $maxProducts = 50;
 
         foreach ($products as $product) {
+            if (count($productsData) >= $maxProducts) {
+                break;
+            }
+
             $productData = $this->handleProductArrayForInsert($product, $existingProductSlugs);
 
             if ($productData !== null) {
@@ -51,7 +56,6 @@ class ImportProductsService
             'description' => fake()->paragraphs(3, true),
             'slug' => $slug,
             'price' => fake()->randomFloat(2, 100, 1000),
-            'is_active' => 1,
             'created_at' => now(),
             'updated_at' => now(),
         ];

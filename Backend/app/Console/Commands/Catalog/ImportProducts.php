@@ -45,6 +45,7 @@ class ImportProducts extends Command
             'product_product_category',
         ], true);
 
+        Artisan::call('db:seed');
         Artisan::call('db:seed', ['class' => 'Database\Seeders\Catalog\ProductCategorySeeder']);
 
         $productsPath = storage_path('app/private/Products.json');

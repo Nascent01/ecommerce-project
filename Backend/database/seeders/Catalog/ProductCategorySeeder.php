@@ -29,8 +29,6 @@ class ProductCategorySeeder extends Seeder
         foreach ($categoryNames as $categoryName) {
             ProductCategory::create([
                 'name' => $categoryName,
-                'slug' => str_slug($categoryName),
-                'is_active' => true,
                 'created_at' => now(),
                 'updated_at' => now(),
             ]);
