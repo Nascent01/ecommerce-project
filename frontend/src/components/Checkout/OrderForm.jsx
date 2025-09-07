@@ -1,6 +1,6 @@
 import React from 'react'
 import { Lock, Mail, MapPin, Phone, User } from 'lucide-react'
-import InputField from './InputField'
+import InputField from '../InputField'
 
 export default function OrderForm({
   formData,

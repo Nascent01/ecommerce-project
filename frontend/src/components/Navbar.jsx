@@ -1,11 +1,14 @@
 import { Link } from "react-router-dom";
 import { ShoppingCart, User } from "lucide-react";
 import { useCart } from "./CartProvider";
+import { useAuth } from "./AuthProvider";
 
 export default function Navbar() {
   const { cart } = useCart();
 
   const totalQuantity = cart.reduce((sum, product) => sum + product.quantity, 0);
+
+  const { user } = useAuth();
 
   return (
     <nav className="bg-white shadow-md px-8 py-4 flex justify-between items-center sticky top-0 z-50">
@@ -20,7 +23,7 @@ export default function Navbar() {
             {totalQuantity}
           </span>
         </Link>
-        <Link to="/login">
+         <Link to={user ? "/dashboard" : "/login"}>
           <User className="w-6 h-6 text-gray-700 hover:text-blue-600 transition-colors" />
         </Link>
       </div>
