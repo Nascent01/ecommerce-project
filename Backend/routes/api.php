@@ -15,6 +15,7 @@ Route::get('/products/{productCategory}', [ProductController::class, 'showProduc
 Route::get('/product/{slug}', [ProductController::class, 'show']);
 
 Route::get('/categories', [\App\Http\Controllers\Api\Catalog\ProductCategoryController::class, 'index']);
+Route::get('/category/{productCategory:id}', [\App\Http\Controllers\Api\Catalog\ProductCategoryController::class, 'show']);
 
 Route::post('/orders', [\App\Http\Controllers\Api\Order\OrderController::class, 'store']);
 
@@ -29,6 +30,6 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::delete('/products/delete/{product}', [ProductController::class, 'delete']);
 
     Route::post('/categories/store', [\App\Http\Controllers\Api\Catalog\ProductCategoryController::class, 'store']);
-    Route::put('/categories/update/{category}', [\App\Http\Controllers\Api\Catalog\ProductCategoryController::class, 'update']);
-    Route::delete('/categories/delete/{category}', [\App\Http\Controllers\Api\Catalog\ProductCategoryController::class, 'delete']);
+    Route::put('/categories/update/{productCategory:id}', [\App\Http\Controllers\Api\Catalog\ProductCategoryController::class, 'update']);
+    Route::delete('/categories/delete/{productCategory:id}', [\App\Http\Controllers\Api\Catalog\ProductCategoryController::class, 'delete']);
 });

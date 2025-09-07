@@ -48,6 +48,6 @@ class ProductController extends Controller
     public function delete(Product $product)
     {
         $product->delete();
-        return response()->json($product, 200, [], JSON_PRETTY_PRINT);
+        return response()->json(null, 204);
     }
 }
