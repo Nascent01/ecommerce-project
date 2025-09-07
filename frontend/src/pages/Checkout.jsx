@@ -7,11 +7,15 @@ import OrderSubmittedSuccessfully from '../components/Checkout/OrderSubmittedSuc
 import OrderForm from '../components/Checkout/OrderForm';
 import ErrorMessage from '../components/Checkout/ErrorMessage';
 import OrderInformation from '../components/Checkout/OrderInformation';
+import { useAuth } from "../components/AuthProvider"; // ✅ import hook
 
 export default function Checkout() {
   const { cart, removeFromCart, updateQuantity, clearCart } = useCart();
   
+  const { user } = useAuth();
+
   const [formData, setFormData] = useState({
+    user_id: user?.id || null,
     name: '',
     address: '',
     phone: '',
