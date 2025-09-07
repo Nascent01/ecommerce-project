@@ -27,6 +27,21 @@ class ProductService
         return Product::where('slug', $slug)->with('categories')->firstOrFail();
     }
 
+    public function handleStore($request)
+    {
+        $categories = Arr::pull($request, 'category');
+
+        $product = Product::create($request);
+
+        if ($categories !== null) {
+            $product->categories()->sync($categories);
+        }
+
+        $product->load('categories');
+
+        return $product;
+    }
+
     public function handleUpdate($product, $request)
     {
         $categories = Arr::pull($request, 'category');

@@ -28,26 +28,8 @@ class StoreProductRequest extends FormRequest
             'description' => 'nullable|string',
             'price' => 'required|numeric|min:0',
             'is_active' => 'boolean',
-            'product_category_ids' => 'nullable|array',
-            'product_category_ids.*' => 'exists:product_categories,id',
-        ];
-    }
-
-    /**
-     * Get custom messages for validator errors.
-     *
-     * @return array
-     */
-    public function messages(): array
-    {
-        return [
-            'name.required' => 'A name is required',
-            'slug.unique' => 'The slug has already been taken',
-            'is_active.boolean' => 'The is_active field must be true or false',
-            'sku.required' => 'A SKU is required',
-            'sku.unique' => 'The SKU has already been taken',
-            'product_category_ids.array' => 'The product categories must be an array',
-            'product_category_ids.*.exists' => 'One or more selected product categories do not exist',
+            'category' => 'nullable|array',
+            'category.*' => 'exists:product_categories,id',
         ];
     }
 }
